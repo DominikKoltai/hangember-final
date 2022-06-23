@@ -35,8 +35,11 @@ let remaininLetters = word.length;
 
 while (remaininLetters > 0) {
     console.log(answerArray.join(" "));
+    const specChar = new RegExp(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/);
+    const numbers = new RegExp(/^([^0-9]*)$/);
     let guess = prompt("Guess a letter: ");
-    if (guess == null) {
+    if (guess == null || guess == numbers || guess == specChar) {
+        console.log("Please enter a letter!");
         break;
     } else if (guess == "quit") {
         console.log("Goodbye!");
@@ -50,34 +53,38 @@ while (remaininLetters > 0) {
                 remaininLetters--;
             }
         }
-        if (guess !== remaininLetters) {
-            if (difficultyChoose == "easy") {
+        if (difficultyChoose == "easy") {
+            if (guess != remaininLetters) {
                 easyHeart = easyHeart.substring(0, easyHeart.length - 1);
                 console.log(easyHeart);
-                    if (easyHeart.length == 0) {
-                        console.log("Game over!");
-                        process.exit();
-                    }
             }
-            else if (difficultyChoose == "medium") {
+            if (easyHeart.length == 0) {
+                console.log("Game over!");
+                process.exit();
+            }   
+        }
+        if (difficultyChoose == "medium") {
+            if (guess != remaininLetters) {
                 mediumHeart = mediumHeart.substring(0, mediumHeart.length - 1);
                 console.log(mediumHeart);
-                    if (mediumHeart.length == 0) {
-                        console.log("Game over!");
-                        process.exit();
-                        }
             }
-            else if (difficultyChoose == "hard") {
+            if (mediumHeart.length == 0) {
+                console.log("Game over!");
+                process.exit();
+            }   
+        }
+        if (difficultyChoose == "hard") {
+            if (guess != remaininLetters) {
                 hardHeart = hardHeart.substring(0, hardHeart.length - 1);
                 console.log(hardHeart);
-                    if (hardHeart.length == 0) {
-                        console.log("Game over!");
-                        process.exit();
-                        }
             }
+            if (hardHeart.length == 0) {
+                console.log("Game over!");
+                process.exit();
+            }   
+        }
         }
     }
-}
 
 console.log(answerArray.join(" "));
 console.log("Good job! The answer was " + word);
